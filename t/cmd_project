@@ -357,3 +357,64 @@ ref.code.call.0x3=0x9
 types=code.jmp,code.call,data.mem,data.string
 '
 run_test
+
+NAME='Reopening projects bin info loading'
+FILE=../bins/elf/analysis/main
+BROKEN=1
+ARGS=
+CMDS='e dir.projects = /tmp/
+Ps bininfo > /dev/null
+Po bininfo
+i
+ie
+ii
+'
+EXPECT='blksz    0x0
+block    0x100
+fd       3
+file     ../bins/elf/analysis/main
+format   elf64
+iorw     false
+mode     -r-x
+size     0x21da
+humansz  8.5K
+type     EXEC (Executable file)
+arch     x86
+binsz    8666
+bintype  elf
+bits     64
+canary   false
+class    ELF64
+crypto   false
+endian   little
+havecode true
+intrp    /lib64/ld-linux-x86-64.so.2
+lang     c
+linenum  true
+lsyms    true
+machine  AMD x86-64 architecture
+maxopsz  16
+minopsz  1
+nx       true
+os       linux
+pcalign  0
+pic      false
+relocs   true
+relro    no
+rpath    NONE
+static   false
+stripped false
+subsys   linux
+va       true
+[Entrypoints]
+vaddr=0x00400410 paddr=0x00000410 baddr=0x00400000 laddr=0x00000000 haddr=0x00000018 type=program
+
+1 entrypoints
+[Imports]
+ordinal=001 plt=0x004003e0 bind=GLOBAL type=FUNC name=puts
+ordinal=002 plt=0x004003f0 bind=GLOBAL type=FUNC name=__libc_start_main
+ordinal=003 plt=0x00400400 bind=WEAK type=NOTYPE name=__gmon_start__
+
+3 imports
+'
+run_test
